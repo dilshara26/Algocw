@@ -49,7 +49,8 @@ public class DirectedG {
         while (sink){
             int v =removeSink();
             if(v== -1){
-                sink = false;
+
+               sink = false;
             }
         }
         return adjacencyList.size() == 0;
@@ -70,3 +71,4 @@ public class DirectedG {
 }
 
 
++

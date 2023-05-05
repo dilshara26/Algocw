@@ -9,7 +9,7 @@ public class Main {
        DirectedG d = new DirectedG();
         System.out.println(d.size());
 
-        
+
 
 
         d.addEdge(1,2);
