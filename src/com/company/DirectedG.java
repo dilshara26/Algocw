@@ -2,6 +2,7 @@ package com.company;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,45 @@ public class DirectedG {
             }
         }
         return -1; // indicates no sink was found
+    }
+
+    public ArrayList<Integer> findCycle() {
+        ArrayList<Integer> visited = new ArrayList<>();
+        ArrayList<Integer> path = new ArrayList<>();
+        ArrayList<Integer> cycle = new ArrayList<>();
+
+        for (int vertex : adjacencyList.keySet()) {
+            if (!visited.contains(vertex)) {
+                if (dfs(vertex, visited, path, cycle)) {
+                    Collections.reverse(cycle);
+                    cycle.add(vertex);
+                    return cycle;
+                }
+            }
+        }
+
+        return null; // indicates the graph is acyclic
+    }
+
+    private boolean dfs(int vertex, ArrayList<Integer> visited, ArrayList<Integer> path, ArrayList<Integer> cycle) {
+        visited.add(vertex);
+        path.add(vertex);
+
+        for (int neighbor : adjacencyList.get(vertex)) {
+            if (!visited.contains(neighbor)) {
+                if (dfs(neighbor, visited, path, cycle)) {
+                    cycle.add(vertex);
+                    return true;
+                }
+            } else if (path.contains(neighbor)) {
+                cycle.add(vertex);
+                return true;
+            }
+        }
+
+        path.remove(vertex);
+
+        return false;
     }
 }
 
